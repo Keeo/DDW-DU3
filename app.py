@@ -161,11 +161,14 @@ def magicSentence(sentence):
   return string
   
   
-def customEntityClasiffication(text):
+def customEntityClasiffication(text, custom):
   tokens = nltk.word_tokenize(text)
   tagged = nltk.pos_tag(tokens)
   ne_chunked = nltk.ne_chunk(tagged, binary=False)
   extractedEntities = extractEntities(ne_chunked)
+
+  if (custom):
+    extractedEntities = customPattern(text)
 
   for entity in extractedEntities:
     results = wikipedia.search(entity, 1)
@@ -184,4 +187,5 @@ def customEntityClasiffication(text):
     else:
       print(entity + " is a thing.")
   
-customEntityClasiffication(text)
+# customEntityClasiffication(text, False)
+customEntityClasiffication(text, True)
